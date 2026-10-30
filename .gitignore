@@ -1,0 +1,35 @@
+# Segredos — a chave da YouTube Data API é pessoal e tem quota associada
+.env
+
+# Ambiente
+.venv/
+__pycache__/
+*.pyc
+
+# Banco e artefatos gerados pelo pipeline
+data/*.db
+data/*.db-shm
+data/*.db-wal
+media/audio/
+media/exports/
+media/visualizations/
+media/thumbs/
+
+# Sistema
+Thumbs.db
+desktop.ini
+
+# Chave da pseudonimização — mapeia identidade real para C1/U1.
+# Fica com o pesquisador; publicar isto anularia a anonimização.
+data/pseudonimos.json
+
+# Resultados do estudo de caso com os nomes reais dos canais.
+# A planilha e o texto nomeiam os criadores; cruzados com dados/, desfazem
+# os pseudonimos C1...C10. Os mesmos resultados ja estao publicados em
+# dados/*.csv, pseudonimizados. Reveja antes de versionar.
+exemplos/
+
+# Registro interno das divergências entre código e manuscrito.
+# Fica com o pesquisador: é material de revisão do artigo, não
+# documentação do software.
+REVISAR_DEPOIS.md

@@ -1,0 +1,67 @@
+# Laplace — versões exatas usadas para produzir os resultados do artigo.
+# Python 3.11.
+#
+# INSTALE O TORCH PRIMEIRO, junto com o torchaudio, a partir do índice da
+# PyTorch. As duas versões precisam coincidir: o torchaudio é uma extensão
+# compilada contra uma versão específica do torch, e um par desencontrado
+# falha com "WinError 127" ao carregar a biblioteca — o que derruba o Demucs.
+#
+#   pip install torch==2.5.1 torchaudio==2.5.1 \
+#       --index-url https://download.pytorch.org/whl/cu121
+#
+# Em CPU: `pip install torch==2.5.1 torchaudio==2.5.1`. O pipeline roda,
+# bem mais devagar nas etapas 2 e 3.
+#
+# Depois: pip install -r requirements.txt
+
+# Coleta
+requests==2.32.5
+python-dotenv==1.2.2
+
+# O yt-dlp é a única dependência deliberadamente NÃO fixada. Ele não mede
+# nada: entrega o mesmo arquivo de áudio que qualquer versão entregaria, e a
+# medição começa depois dele. Em compensação, a plataforma muda as defesas
+# com frequência, e uma versão fixa para de funcionar em semanas — o que
+# tornaria o pipeline irreprodutível justamente por excesso de fixação.
+# Testado com 2026.8.19.
+yt-dlp>=2026.8.19
+
+# Separação de fontes e transcrição
+torch==2.5.1
+torchaudio==2.5.1
+demucs==4.0.1
+faster-whisper==1.2.1
+
+# O ctranslate2 é o motor que de fato executa o Whisper; o faster-whisper
+# apenas o aciona, e aceita qualquer versão >=4.0,<5. Versões diferentes
+# segmentam o áudio de forma diferente, e a fronteira do segmento é a
+# unidade de todo o resto: mover uma fronteira muda o pitch mediano, a
+# posição das emoções e os ratios de ato de fala. Sem esta linha, duas
+# instalações da mesma data produzem números diferentes.
+ctranslate2==4.7.1
+
+# Classificação linguística e emocional
+transformers==5.5.0
+pysentimiento==0.7.3
+
+# Prosódia
+librosa==0.11.0
+soundfile==0.13.1
+numpy==2.4.4
+scipy==1.17.1
+
+# Identificação musical
+shazamio==0.8.1
+
+# O music_id fatia o áudio em janelas com o pydub antes de consultar o
+# Shazam. Ele não vem por dependência de nenhum outro pacote: sem esta
+# linha, a etapa 7 é pulada com um aviso e `music_events` fica vazia — o
+# que se parece com "nenhuma música identificada".
+pydub==0.25.1
+
+# Análise estatística do estudo de caso
+dtaidistance==2.4.0
+
+# Exportação
+openpyxl==3.1.5
+matplotlib==3.10.8

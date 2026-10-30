@@ -1,0 +1,10 @@
+# O repositorio sera clonado em Windows, Linux e macOS. Sem isto, o final
+# de linha entra no historico conforme a maquina de quem commitou, e o
+# diff de um arquivo intocado aparece inteiro para quem clona no outro SO.
+* text=auto eol=lf
+
+# Binarios: nunca normalizar.
+*.png binary
+*.xlsx binary
+*.mp3 binary
+*.wav binary
